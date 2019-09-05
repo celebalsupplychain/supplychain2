@@ -27,7 +27,7 @@ SECRET_KEY = 'y#ih54b62ue!ced=nfq%rfr1#f4l%8gd@7_9i16cgc&(z18o82'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ROOT_URLCONF = 'SupplyChain.urls'
+ROOT_URLCONF = 'AzureSite.urls'
 ALLOWED_HOSTS = ['*']
 
 

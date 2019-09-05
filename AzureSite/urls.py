@@ -21,9 +21,4 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('SupplyChain.urls'))
-<<<<<<< HEAD
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
->>>>>>> c27181e26591fc7d7a829c668f5ee77223d8ea00
