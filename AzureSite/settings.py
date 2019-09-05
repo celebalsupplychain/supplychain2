@@ -27,7 +27,7 @@ SECRET_KEY = 'y#ih54b62ue!ced=nfq%rfr1#f4l%8gd@7_9i16cgc&(z18o82'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ROOT_URLCONF = 'SupplyChain.urls'
 ALLOWED_HOSTS = ['*']
 
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-"sslserver",
+    "sslserver",
     'rest_framework',
     'corsheaders',
     'SupplyChain'
@@ -61,24 +61,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
-STATIC_URL = '/static/'
-
-# Add these new lines
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = os.path.join(BASE_DIR, 'media/')
-MEDIA_ROOT = MEDIA_DIR
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'SupplyChain/static')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, os.path.join('SupplyChain','templates'))]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -142,3 +132,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+STATIC_URL = '/static/'
+
+# Add these new lines
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = MEDIA_DIR
