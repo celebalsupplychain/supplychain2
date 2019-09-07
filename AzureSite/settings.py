@@ -142,3 +142,30 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 MEDIA_ROOT = MEDIA_DIR
+
+# For logger 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'errors.log'),
+            'formatter' : 'simple'
+        },
+    },
+    'loggers': {
+        'SupplyChain.views': {
+            'level': 'ERROR',
+            'handlers': ['file'],
+            'propagate': True,
+        },
+    },
+}

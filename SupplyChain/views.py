@@ -15,6 +15,10 @@ from azure.common.credentials import ServicePrincipalCredentials
 from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.storage.models import StorageAccountCreateParameters
+import logging
+
+# Create a logger handler
+logger = logging.getLogger(__name__)
 # from .databricks_linux import databricks
 
 # read Data for form config File
@@ -29,7 +33,7 @@ def read_mapping():
             data = json.load(file)
         return data
     except Exception as e:
-        print("Error in reading the file mappings: ", e)
+        logger.error("Error in reading the file mappings: "+str(e))
 
 # Funtion for generating random unique id
 def random_id(request):
@@ -66,7 +70,7 @@ def azure_account(data):
             elif sections_data[section]['title'] =='Storage Account Details':
                 storage_account_name = sections_data[section]['sectionAttributes'][0]['value']
         except Exception as e:
-            print('Error in for loop of azure_account function: ', e)
+            logger.error('Error in for loop of azure_account function: '+str(e))
     try:
         # Initialization of Azure resources
         credentials = ServicePrincipalCredentials(
@@ -74,11 +78,11 @@ def azure_account(data):
             secret=secret,
             tenant=tenant
         )
-        print("credentials: ", credentials)
+        logger.error("credentials: ", credentials)
         resource_client = ResourceManagementClient(credentials, subscription_id)
         storage_client = StorageManagementClient(credentials, subscription_id)
     except Exception as e:
-        print('Error in azure_account function', e)
+        logger.error('Error in azure_account function'+str(e))
         return e
     return resource_client, storage_client, storage_account_name, resource_group
 
@@ -90,10 +94,15 @@ class azure_functions(APIView):
         return JsonResponse({"success": "No Data to Display"})
 
     def post(self, request):
+        # TODO Remove
+        print('---------', __name__)
+        logger.error('In azure function')
         # If credentials are invalid then only exception message will be returned from azure_account function
         try:
             resource_client, storage_client, storage_account_name, resource_group = azure_account(request.data)
         except Exception as e:
+            print('In azure_function exception'+str(e))
+            logger.error('In azure_function exception'+str(e))
             return JsonResponse({'status': 'failed', "message": "Invalid Credentials"})
         try:
             # TODO: Change the logic, send key in post call or improve conditions
@@ -113,7 +122,8 @@ class azure_functions(APIView):
                 else:
                     return JsonResponse({"status": "failed", "message": "Resource Group Doesn't exist"})
         except Exception as e:
-            print('In azure_function exception', e)
+            print('In azure_function exception'+str(e))
+            logger.error('In azure_function exception'+str(e))
             return JsonResponse({'status': 'failed', "message": "Invalid Credentials"})
 
 
@@ -161,14 +171,14 @@ class SupplyChain(APIView):
                     vault_dict = { '$schema': param_file['general']['schema'],
                                 'contentVersion': param_file['general']['contentVersion'], 'parameters': {}}
                 except Exception as e:
-                    print("Exception in opening parameters.json file: ", e)
+                    logger.error("Exception in opening parameters.json file: "+str(e))
             # Container Name to be used in Azure Deployment
             container_name = param_file['containername']
             # Convert Parameter list to lowercase
             adf_parameters = list(map(lambda func: func.lower(), adf_parameters))
             vault_parameters = list(map(lambda func: func.lower(), vault_parameters))
         except Exception as e:
-            print('Error opening json file: ', e)
+            logger.error('Error opening json file: '+str(e))
         try:
             section_data = request.data['sections']
         except Exception as e:
@@ -187,9 +197,9 @@ class SupplyChain(APIView):
                         if name.lower() in vault_parameters:
                             vault_dict['parameters'][name] = {'value': value}
                     except Exception as e:
-                        print('error in inner loop', sectionAttribute, str(e))
+                        logger.error('error in inner loop', sectionAttribute, str(e))
             except Exception as e:
-                print('error in in outer loop at index ', section_attr)
+                logger.error('error in in outer loop at index ', section_attr)
                 return JsonResponse({'Output': 'error'})
 
         # For optional Table
@@ -221,10 +231,10 @@ class SupplyChain(APIView):
                 for table in range(len(tables)):
                     adf_dict['parameters']["BlobTable"]['value'].append({'table_name': tables[table]})
         except KeyError as e:
-            print("Keyerror Exception in creating table data: ", e)
+            logger.error("Keyerror Exception in creating table data: "+str(e))
             return JsonResponse({"message": "error"})
         except Exception as e:
-            print('Exception in creating table data: ', e)
+            logger.error('Exception in creating table data: '+str(e))
             return JsonResponse({"message": "error"})
 
         # Get all required parameters from submitted data for Azure Deployment
@@ -244,7 +254,7 @@ class SupplyChain(APIView):
                     elif section_data[key]['title'] =='Storage Account Details':
                         storage_account_name = section_data[key]['sectionAttributes'][0]['value']
                 except Exception as e:
-                    print("Exception in initializing various keys: ", e)
+                    logger.error("Exception in initializing various keys: "+str(e))
                     client_id = ''
                     secret = ''
                     tenant = ''
@@ -252,7 +262,7 @@ class SupplyChain(APIView):
                     resource_group = ''
                     resource_group_location = ''
         except KeyError as key:
-            print('Key Not found', key)
+            logger.error('Key Not found', key)
 
         # Azure Deployment code
         try:
@@ -277,7 +287,7 @@ class SupplyChain(APIView):
                     counter = counter + 1
                     time.sleep(10)
                 except Exception as e:
-                    print("Error in creating a new container: ", e)
+                    logger.error("Error in creating a new container: "+str(e))
             # Set the permission so the blobs are public.
             # block_blob_service.set_container_acl(
             #     container_name, public_access=PublicAccess.Container)
@@ -292,10 +302,10 @@ class SupplyChain(APIView):
                     file_name = filepath.split("\\")
                     response_obj = blob_client.create_blob_from_path(container_name=container_name, blob_name=file_name[1],
                                                              file_path=os.path.join(BASE_DIR, filepath))
-                    print("blob_create status: ", response_obj)
+                    logger.error("blob_create status: ", response_obj)
                     time.sleep(5)
                 except Exception as e:
-                    print("Exception in creating Blob: ", e)
+                    logger.error("Exception in creating Blob: "+str(e))
 
             # Deployment of blobs
             try:
@@ -306,7 +316,7 @@ class SupplyChain(APIView):
                 kv_obj = deployment_obj.deploy("upload_files/KeyVaultDeployment.json",
                                                "upload_files/KeyVaultParameters.json", connectionstring)
             except Exception as e:
-                print("Exception in deploy the data factory: ", e)
+                logger.error("Exception in deploy the data factory: " + str(e))
 
             # Remove conatiner from storage account after deployment
             try:
@@ -315,22 +325,22 @@ class SupplyChain(APIView):
                 databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
                 # databricks.main(databricksURL, databricksToken, databricksScope)
             except Exception as e:
-                print('exception in databricks function: ', e)
+                logger.error('exception in databricks function: '+str(e))
             try:
                 time.sleep(5)
                 # delete_container = blob_client.delete_container(container_name)
-                # print("delete container: ", delete_container)
+                # logger.error("delete container: ", delete_container)
             except Exception as e:
-                print("Exception in removing conatiner from storage account: ", e)
+                logger.error("Exception in removing conatiner from storage account: "+str(e))
             # Remove ADFParameters.json and KeyVaultParameters.json after deployment
             try:
                 os.remove('upload_files/ADFParameters.json')
                 os.remove('upload_files/KeyVaultParameters.json')
-                print('files removed')
+                logger.error('files removed')
             except Exception as e:
-                print('Error in removing ADFParameters.json and KeyVaultParameters.json file:', str(e))
+                logger.error('Error in removing ADFParameters.json and KeyVaultParameters.json file:', str(e))
         except Exception as e:
-            print("exception in azure conn: " + str(e))
-        print('done')
+            logger.error("exception in azure conn: " + str(e))
+        logger.error('done')
 
         return JsonResponse({"message": "Successful"})

@@ -1,0 +1,12 @@
+In azure function
+Error in azure_account function, AdalError: Get Token request returned http error: 404
+In azure_function exceptioncannot unpack non-iterable AuthenticationError object
+ERROR In azure function
+ERROR Error in azure_account function, AdalError: Get Token request returned http error: 404
+ERROR In azure_function exceptioncannot unpack non-iterable AuthenticationError object
+2019-09-07 15:19:48,229 ERROR In azure function
+2019-09-07 15:19:48,631 ERROR Error in azure_account function, AdalError: Get Token request returned http error: 404
+2019-09-07 15:19:48,633 ERROR In azure_function exceptioncannot unpack non-iterable AuthenticationError object
+2019-09-07 15:21:21,259 ERROR Exception in deploy the data factory: , AdalError: Get Token request returned http error: 404
+2019-09-07 15:21:26,263 ERROR files removed
+2019-09-07 15:21:26,263 ERROR done
