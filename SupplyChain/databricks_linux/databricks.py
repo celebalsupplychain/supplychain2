@@ -3,6 +3,9 @@ import json
 #To execute the main shell script (main.sh)
 import subprocess
 from AzureSite.settings import BASE_DIR
+import logging
+
+logger = logging.getLogger(__name__)
 
 list_json=["arima","prophet","holtwinter","lstm","xgboost","operational_research","os","timefence"]
 
@@ -55,8 +58,10 @@ try:
 		try:
 
 		    #Executing the main shell script with the parameters required
-		    subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
+		    sub = subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
+			logger.error(str(sub))
 		except:
+			
 		    print("Error in executing main shell script!!")
 
 	
