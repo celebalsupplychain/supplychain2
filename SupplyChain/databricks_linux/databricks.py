@@ -58,9 +58,9 @@ try:
 
 		try:
 			sub = subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
-			with open('subprocess_file', 'w') as fp:
+			with open('subprocess_file.txt', 'w') as fp:
 			    fp.write(sub)
-				
+
 		except:
 			print("Error in executing main shell script!!")
 
