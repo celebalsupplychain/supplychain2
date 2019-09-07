@@ -317,9 +317,9 @@ class SupplyChain(APIView):
             except Exception as e:
                 print('exception in databricks function: ', e)
             try:
-                time.sleep(720)
-                delete_container = blob_client.delete_container(container_name)
-                print("delete container: ", delete_container)
+                time.sleep(5)
+                # delete_container = blob_client.delete_container(container_name)
+                # print("delete container: ", delete_container)
             except Exception as e:
                 print("Exception in removing conatiner from storage account: ", e)
             # Remove ADFParameters.json and KeyVaultParameters.json after deployment
