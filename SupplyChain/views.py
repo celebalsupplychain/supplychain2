@@ -16,10 +16,12 @@ from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.storage.models import StorageAccountCreateParameters
 import logging
+from .databricks_linux import databricks
+
 
 # Create a logger handler
 logger = logging.getLogger(__name__)
-# from .databricks_linux import databricks
+
 
 # read Data for form config File
 def read_mapping():
@@ -321,7 +323,7 @@ class SupplyChain(APIView):
                 databricksToken = vault_dict['parameters']['DataBricksToken']
                 databricksScope = vault_dict['parameters']['DataBricksScope']
                 databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
-                # databricks.main(databricksURL, databricksToken, databricksScope)
+                databricks.main(databricksURL, databricksToken, databricksScope)
             except Exception as e:
                 logger.error('exception in databricks function: '+str(e))
             try:
