@@ -78,7 +78,7 @@ def azure_account(data):
             secret=secret,
             tenant=tenant
         )
-        logger.error("credentials: ")
+
         resource_client = ResourceManagementClient(credentials, subscription_id)
         storage_client = StorageManagementClient(credentials, subscription_id)
     except Exception as e:
@@ -94,9 +94,7 @@ class azure_functions(APIView):
         return JsonResponse({"success": "No Data to Display"})
 
     def post(self, request):
-        # TODO Remove
-        print('---------', __name__)
-        logger.error('In azure function')
+
         # If credentials are invalid then only exception message will be returned from azure_account function
         try:
             resource_client, storage_client, storage_account_name, resource_group = azure_account(request.data)
@@ -299,7 +297,6 @@ class SupplyChain(APIView):
             # Creation of blobs for all the parameters and deployment file in container
             for filepath in glob.iglob('upload_files/*.json'):
                 try:
-                    logger.error('filepath'+ str(filepath))
                     file_name = filepath.split("/")
                     response_obj = blob_client.create_blob_from_path(container_name=container_name, blob_name=file_name[1],
                                                              file_path=os.path.join(BASE_DIR, filepath))
@@ -307,7 +304,7 @@ class SupplyChain(APIView):
                     time.sleep(5)
                 except Exception as e:
                     logger.error("Exception in creating Blob: "+str(e))
-
+                    logger.error('filepath'+ str(filepath))
             # Deployment of blobs
             try:
                 deployment_obj = Deployer(resource_group, subscription_id, client_id, secret,
@@ -330,7 +327,6 @@ class SupplyChain(APIView):
             try:
                 time.sleep(720)
                 delete_container = blob_client.delete_container(container_name)
-                logger.error("delete container: ", delete_container)
             except Exception as e:
                 logger.error("Exception in removing conatiner from storage account: "+str(e))
             # Remove ADFParameters.json and KeyVaultParameters.json after deployment
@@ -339,7 +335,7 @@ class SupplyChain(APIView):
                 os.remove('upload_files/KeyVaultParameters.json')
                 logger.error('files removed')
             except Exception as e:
-                logger.error('Error in removing ADFParameters.json and KeyVaultParameters.json file:', str(e))
+                logger.error('Error in removing ADFParameters.json and KeyVaultParameters.json file:'+ str(e))
         except Exception as e:
             logger.error("exception in azure conn: " + str(e))
         logger.error('done')
