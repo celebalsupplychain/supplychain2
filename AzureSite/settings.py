@@ -144,6 +144,7 @@ MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 MEDIA_ROOT = MEDIA_DIR
 
 # For logger 
+# maximum log file is set to 10 MB
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -158,6 +159,7 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_DIR, 'errors.log'),
+            'maxBytes' : 1024 * 1024 * 10,
             'formatter' : 'simple'
         },
     },
