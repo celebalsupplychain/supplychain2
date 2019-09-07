@@ -56,13 +56,10 @@ try:
 			    json.dump(list_json[i], fp)
 
 		try:
-
-		    #Executing the main shell script with the parameters required
-		    sub = subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
+			sub = subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
 			logger.error(str(sub))
 		except:
-			
-		    print("Error in executing main shell script!!")
+			print("Error in executing main shell script!!")
 
 	
 	
