@@ -63,8 +63,8 @@ try:
 
 		except:
 			print("Error in executing main shell script!!")
-
 	
+	main("https://eastus.azuredatabricks.net","dapic796ff7b12a4755379e22e9e8ad34185","/home/site/wwwroot")
 	
 except Exception as e:
     print(e)
