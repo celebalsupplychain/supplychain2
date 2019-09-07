@@ -78,7 +78,7 @@ def azure_account(data):
             secret=secret,
             tenant=tenant
         )
-        logger.error("credentials: ", credentials)
+        logger.error("credentials: ")
         resource_client = ResourceManagementClient(credentials, subscription_id)
         storage_client = StorageManagementClient(credentials, subscription_id)
     except Exception as e:
@@ -197,9 +197,9 @@ class SupplyChain(APIView):
                         if name.lower() in vault_parameters:
                             vault_dict['parameters'][name] = {'value': value}
                     except Exception as e:
-                        logger.error('error in inner loop', sectionAttribute, str(e))
+                        logger.error('error in inner loop')
             except Exception as e:
-                logger.error('error in in outer loop at index ', section_attr)
+                logger.error('error in in outer loop at index ')
                 return JsonResponse({'Output': 'error'})
 
         # For optional Table
@@ -262,7 +262,7 @@ class SupplyChain(APIView):
                     resource_group = ''
                     resource_group_location = ''
         except KeyError as key:
-            logger.error('Key Not found', key)
+            logger.error('Key Not found' + str(key))
 
         # Azure Deployment code
         try:
@@ -302,7 +302,7 @@ class SupplyChain(APIView):
                     file_name = filepath.split("/")
                     response_obj = blob_client.create_blob_from_path(container_name=container_name, blob_name=file_name[1],
                                                              file_path=os.path.join(BASE_DIR, filepath))
-                    logger.error("blob_create status: ", response_obj)
+                                                             
                     time.sleep(5)
                 except Exception as e:
                     logger.error("Exception in creating Blob: "+str(e))
