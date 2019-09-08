@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "Supply_Chain";
+mkdir yo;
 apt-get -y install git;
 pip3 install wheel;
 pip3 install databricks-cli;
