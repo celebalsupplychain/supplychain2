@@ -1,10 +1,10 @@
 #!/bin/bash
 
+deactivate
 echo "Supply_Chain";
-source /home/site/wwwroot/antenv/bin/activate
 apt-get -y install git;
 pip3 install wheel;
-/opt/python/3.7.4/bin/pip3 install databricks-cli;
+pip3 install databricks-cli;
 apt-get -y install expect;
 apt-get -y install jq ;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
