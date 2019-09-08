@@ -8,7 +8,7 @@ apt-get -y install expect;
 apt-get -y install jq ;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
-databricks workspace import  -f DBC -l SCALA $3/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
+databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
 databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 
 scripts=(
