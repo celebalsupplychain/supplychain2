@@ -5,7 +5,7 @@ set token [lindex $argv 1];
  
 set timeout -1
  
-spawn databricks configure --token
+spawn /home/site/wwwroot/antenv/bin/databricks configure --token
  
 expect "Databricks Host (should begin with https://): "
  
