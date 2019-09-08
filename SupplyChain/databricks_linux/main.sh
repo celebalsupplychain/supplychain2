@@ -8,8 +8,8 @@ expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
 mkdir test;
 pwd > prtk;
-databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
-databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
+/home/site/wwwroot/antenv/bin/databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
+/home/site/wwwroot/antenv/bin/databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 scripts=(
     arima_installation.sh
     prophet_installation.sh
@@ -19,7 +19,7 @@ scripts=(
     or_installation.sh
 )
 for i in "${scripts[@]}"; do
-    databricks fs cp $3/SupplyChain/databricks_linux/$i dbfs:/databricks/init/SupplyChain/;
+    /home/site/wwwroot/antenv/bin/databricks fs cp $3/SupplyChain/databricks_linux/$i dbfs:/databricks/init/SupplyChain/;
 done
 
 jsons=(
@@ -33,7 +33,7 @@ jsons=(
     timefence.json
 )
 for i in "${jsons[@]}"; do
-    runid=$(databricks jobs create --json-file $3/SupplyChain/databricks_linux/$i);
+    runid=$(/home/site/wwwroot/antenv/bin/databricks jobs create --json-file $3/SupplyChain/databricks_linux/$i);
     echo $runid;
     runidnew=$(echo $runid | jq -r '.job_id');
     echo $runidnew;
