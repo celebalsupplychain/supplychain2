@@ -1,6 +1,4 @@
 #!/bin/bash
-source /home/site/wwwroot/antenv/bin/activate;
-deactivate;
 echo "Supply_Chain";
 apt-get -y install git;
 pip3 install wheel;
