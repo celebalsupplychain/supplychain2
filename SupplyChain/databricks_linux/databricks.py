@@ -2,11 +2,6 @@
 import json
 #To execute the main shell script (main.sh)
 import subprocess
-from AzureSite.settings import BASE_DIR
-import logging
-
-logger = logging.getLogger(__name__)
-logger.error(BASE_DIR)
 
 list_json=["arima","prophet","holtwinter","lstm","xgboost","operational_research","os","timefence"]
 
@@ -52,12 +47,12 @@ try:
 
 		#Dumping the json into respective files
 		for i in range(length_notebooks):
-			path=BASE_DIR+"/SupplyChain/databricks_linux/"+jsons[i]
+			path="/home/site/wwwroot/SupplyChain/databricks_linux/"+jsons[i]
 			with open(path, 'w') as fp:
 			    json.dump(list_json[i], fp)
 
 		try:
-			sub = subprocess.getoutput("bash {}/SupplyChain/databricks_linux/main.sh {} {} {}".format(BASE_DIR, databricks_instance, databricks_token, BASE_DIR))
+			sub = subprocess.getoutput("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
 			with open('subprocess_file.txt', 'w') as fp:
 			    fp.write(sub)
 
