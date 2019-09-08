@@ -1,6 +1,5 @@
 #!/bin/bash
 
-deactivate
 echo "Supply_Chain";
 apt-get -y install git;
 pip3 install wheel;
