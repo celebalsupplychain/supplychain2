@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "Supply_Chain";
-source /home/site/wwwroot/antenv/bin/activate;
 apt-get -y install git;
 pip3 install wheel;
 pip3 install databricks-cli;
