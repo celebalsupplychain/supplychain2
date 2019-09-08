@@ -2,6 +2,7 @@
 import json
 #To execute the main shell script (main.sh)
 import subprocess
+import os
 
 list_json=["arima","prophet","holtwinter","lstm","xgboost","operational_research","os","timefence"]
 
@@ -52,6 +53,7 @@ try:
 			    json.dump(list_json[i], fp)
 
 		try:
+			os.system("pip3 install databricks-cli")
 			sub = subprocess.getoutput("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
 			with open('subprocess_file.txt', 'w') as fp:
 			    fp.write(sub)
