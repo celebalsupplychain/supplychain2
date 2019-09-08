@@ -1,11 +1,11 @@
 #!/bin/bash
 echo "Supply_Chain";
+source /home/site/wwwroot/antenv/bin/activate;
 apt-get -y install git;
 pip3 install wheel;
 pip3 install databricks-cli;
 apt-get -y install expect;
 apt-get -y install jq ;
-#cp /home/site/wwwroot/antenv/bin/databricks /opt/python/3.7.4/bin/;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
 mkdir test;
