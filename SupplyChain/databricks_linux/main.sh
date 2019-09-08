@@ -37,5 +37,5 @@ for i in "${jsons[@]}"; do
     echo $runid;
     runidnew=$(echo $runid | jq -r '.job_id');
     echo $runidnew;
-    databricks jobs run-now --job-id $runidnew;
+    /home/site/wwwroot/antenv/bin/databricks jobs run-now --job-id $runidnew;
 done
