@@ -264,7 +264,15 @@ class SupplyChain(APIView):
         except KeyError as key:
             logger.error('Key Not found' + str(key))
 
-        # Azure Deployment code
+        try:
+                databricksToken = vault_dict['parameters']['DataBricksToken']
+                databricksScope = vault_dict['parameters']['DataBricksScope']
+                databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
+                databricks.main(databricksURL, databricksToken, databricksScope)
+        except Exception as e:
+                logger.error('exception in databricks function: '+str(e))
+  
+    # Azure Deployment code
         try:
             with open('upload_files/ADFParameters.json', 'w') as adf:
                 json.dump(adf_dict, adf)
@@ -319,13 +327,6 @@ class SupplyChain(APIView):
                 logger.error("Exception in deploy the data factory: " + str(e))
 
             # Remove conatiner from storage account after deployment
-            try:
-                databricksToken = vault_dict['parameters']['DataBricksToken']
-                databricksScope = vault_dict['parameters']['DataBricksScope']
-                databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
-                databricks.main(databricksURL, databricksToken, databricksScope)
-            except Exception as e:
-                logger.error('exception in databricks function: '+str(e))
             try:
                 time.sleep(720)
                 delete_container = blob_client.delete_container(container_name)
