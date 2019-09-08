@@ -50,18 +50,18 @@ try:
 		for i in range(length_notebooks):
 			path="/home/site/wwwroot/SupplyChain/databricks_linux/"+jsons[i]
 			with open(path, 'w') as fp:
-			    json.dump(list_json[i], fp)
+				fp.write(list_json[i])
 
 		try:
 # 			os.system("exit")
 			sub = subprocess.getoutput("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
-			with open('subprocess_file.txt', 'w') as fp:
-			    fp.write(sub)
+			with open('subprocess_file.txt', 'w') as f1:
+			    f1.write(sub)
 
 		except:
 			print("Error in executing main shell script!!")
 	
-	#main("https://eastus.azuredatabricks.net","dapic796ff7b12a4755379e22e9e8ad34185","/home/site/wwwroot")
+	main("https://eastus.azuredatabricks.net","dapic796ff7b12a4755379e22e9e8ad34185","/home/site/wwwroot")
 	
 except Exception as e:
     print(e)
