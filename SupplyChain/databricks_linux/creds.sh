@@ -1,5 +1,7 @@
 #!/usr/bin/expect -f
 
+source /home/site/wwwroot/antenv/bin/activate
+
 set hostname [lindex $argv 0];
 set token [lindex $argv 1];
  
