@@ -2,7 +2,6 @@
 echo "Supply_Chain";
 apt-get -y install git;
 pip3 install wheel;
-pip3 install databricks-cli;
 apt-get -y install expect;
 apt-get -y install jq ;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
