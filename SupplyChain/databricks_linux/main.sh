@@ -7,10 +7,10 @@ pip3 install wheel;
 pip3 install databricks-cli;
 apt-get -y install expect;
 apt-get -y install jq ;
+expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
 mkdir test;
 pwd > prtk;
-expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
 databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 scripts=(
