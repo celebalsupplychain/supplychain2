@@ -19,7 +19,7 @@ try:
 		#Details of the cluster and notebooks assigned to variables
 		for i in range(length_notebooks):
 			clusters_name = "SupplyChain"
-			list_json[i] = {
+			list_json[i] = """{
 			    "name": "SparkPi Python job",
 			    "new_cluster": {
 				"name": clusters_name,
@@ -42,7 +42,7 @@ try:
 
 				}
 			    }
-			}
+			}"""
 
 		print(databricks_instance, databricks_token)
 
@@ -50,7 +50,7 @@ try:
 		for i in range(length_notebooks):
 			path="/home/site/wwwroot/SupplyChain/databricks_linux/"+jsons[i]
 			with open(path, 'w') as fp:
-				fp.write(list_json[i])
+				json.dump(list_json[i], fp)
 
 		try:
 # 			os.system("exit")
