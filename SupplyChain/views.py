@@ -263,14 +263,6 @@ class SupplyChain(APIView):
                     resource_group_location = ''
         except KeyError as key:
             logger.error('Key Not found' + str(key))
-
-        try:
-                databricksToken = vault_dict['parameters']['DataBricksToken']
-                databricksScope = vault_dict['parameters']['DataBricksScope']
-                databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
-                databricks.main(databricksURL, databricksToken, databricksScope)
-        except Exception as e:
-                logger.error('exception in databricks function: '+str(e))
   
     # Azure Deployment code
         try:
@@ -325,7 +317,15 @@ class SupplyChain(APIView):
                                                "upload_files/KeyVaultParameters.json", connectionstring)
             except Exception as e:
                 logger.error("Exception in deploy the data factory: " + str(e))
-
+        
+            try:
+                databricksToken = vault_dict['parameters']['DataBricksToken']
+                databricksScope = vault_dict['parameters']['DataBricksScope']
+                databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
+                databricks.main(databricksURL, databricksToken, databricksScope)
+            except Exception as e:
+                logger.error('exception in databricks function: '+str(e))
+    
             # Remove conatiner from storage account after deployment
             try:
                 time.sleep(720)
