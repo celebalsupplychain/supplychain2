@@ -5,12 +5,13 @@ pip3 install pexpect;
 pip3 install wheel;
 pip3 install databricks-cli;
 apt-get -y install expect;
-apt-get -y install jq ;
-python3 /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
-#expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
+apt-get -y install jq;
+cp /home/site/wwwroot/antenv/bin/databricks /opt/python/3/bin/
+#python3 /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
+expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
-/home/site/wwwroot/antenv/bin/databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/SupplyChain/databricks_linux/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
-/home/site/wwwroot/antenv/bin/databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
+databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/SupplyChain/databricks_linux/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
+databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 scripts=(
     arima_installation.sh
     prophet_installation.sh
@@ -20,7 +21,7 @@ scripts=(
     or_installation.sh
 )
 for i in "${scripts[@]}"; do
-    /home/site/wwwroot/antenv/bin/databricks fs cp $3/SupplyChain/databricks_linux/$i dbfs:/databricks/init/SupplyChain/;
+    databricks fs cp $3/SupplyChain/databricks_linux/$i dbfs:/databricks/init/SupplyChain/;
 done
 
 jsons=(
@@ -34,9 +35,9 @@ jsons=(
     timefence.json
 )
 for i in "${jsons[@]}"; do
-    runid=$(/home/site/wwwroot/antenv/bin/databricks jobs create --json-file $3/SupplyChain/databricks_linux/$i);
+    runid=$(databricks jobs create --json-file $3/SupplyChain/databricks_linux/$i);
     echo $runid;
     runidnew=$(echo $runid | jq -r '.job_id');
     echo $runidnew;
-    /home/site/wwwroot/antenv/bin/databricks jobs run-now --job-id $runidnew;
+    databricks jobs run-now --job-id $runidnew;
 done
