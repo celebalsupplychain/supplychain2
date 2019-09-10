@@ -6,7 +6,7 @@ pip3 install wheel;
 pip3 install databricks-cli;
 apt-get -y install expect;
 apt-get -y install jq;
-cp /home/site/wwwroot/antenv/bin/databricks /opt/python/3/bin/
+cp /home/site/wwwroot/antenv/bin/databricks /opt/python/3/bin/;
 #python3 /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
