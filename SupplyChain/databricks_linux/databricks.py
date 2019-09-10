@@ -4,6 +4,8 @@ import json
 import subprocess
 import os
 
+import sys
+
 list_json=["arima","prophet","holtwinter","lstm","xgboost","operational_research","os","timefence"]
 
 scripts=["/arima_installation.sh","/prophet_installation.sh","/holtwinter_installation.sh","/lstm_installation.sh","/xgboost_installation.sh","/or_installation.sh","/or_installation.sh","/or_installation.sh"]
@@ -61,7 +63,7 @@ try:
 		except:
 			print("Error in executing main shell script!!")
 	
-	#main("https://eastus.azuredatabricks.net","dapic796ff7b12a4755379e22e9e8ad34185","/home/site/wwwroot")
+	main(sys.argv[1],sys.argv[2],sys.argv[3])
 	
 except Exception as e:
     print(e)
