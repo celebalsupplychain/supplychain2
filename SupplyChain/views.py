@@ -322,7 +322,7 @@ class SupplyChain(APIView):
                 databricksToken = vault_dict['parameters']['DataBricksToken']
                 databricksScope = vault_dict['parameters']['DataBricksScope']
                 databricksURL = vault_dict['parameters']['DataBricksWorkspaceURL']
-                subprocess.getoutput("python3 /home/site/wwwroot/SupplyChain/databrics_linux/databricks.py {} {} {}".format(databricksURL, databricksToken, databricksScope))
+                subprocess.getoutput("python3 /home/site/wwwroot/SupplyChain/databricks_linux/databricks.py {} {} {}".format(databricksURL, databricksToken, databricksScope))
             except Exception as e:
                 logger.error('exception in databricks function: '+str(e))
     
