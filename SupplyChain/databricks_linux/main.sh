@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Supply_Chain";
 apt-get -y install git;
-pip3 install pexpect;
+#pip3 install pexpect;
 pip3 install wheel;
 pip3 install databricks-cli;
 apt-get -y install expect;
