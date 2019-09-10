@@ -12,7 +12,7 @@ apt-get -y install jq;
 #python3 /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
-databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/SupplyChain/databricks_linux/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
+databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
 databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 scripts=(
     arima_installation.sh
