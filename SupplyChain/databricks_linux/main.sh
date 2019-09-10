@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "Supply_Chain";
+source /home/site/wwwroot/antenv/bin/activate
 apt-get -y install git;
 #pip3 install pexpect;
 pip3 install wheel;
