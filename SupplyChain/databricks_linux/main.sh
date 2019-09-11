@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Supply_Chain";
 apt-get -y install git;
+/opt/python/3.7.4/bin/pip3 install wheel;
 /opt/python/3.7.4/bin/pip3 install databricks-cli;
 #apt-get -y install expect;
 apt-get -y install jq;
