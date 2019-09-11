@@ -63,7 +63,7 @@ try:
 		except:
 			print("Error in executing main shell script!!")
 	
-	main(x,y,z)
+	main(x,y,"scope")
 	
 except Exception as e:
     print(e)
