@@ -58,10 +58,8 @@ try:
 
 		try:
 # 			os.system("exit")
-			sub = subprocess.getoutput("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
-			with open('subprocess_file.txt', 'w') as f1:
-			    f1.write(sub)
-
+			os.system("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
+			
 		except:
 			print("Error in executing main shell script!!")
 	
