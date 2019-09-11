@@ -1,6 +1,6 @@
 def func(hostname,token,n):
      try:
-         child = pexpect.popen_spawn.PopenSpawn('databricks configure --token',timeout=n)
+         child = pexpect.popen_spawn.PopenSpawn('/home/siite/wwwroot/antenv/bin/databricks configure --token',timeout=n)
          child.expect_exact(b'Databricks Host (should begin with https://):')
          child.sendline(bytes('{}'.format(hostname),'utf-8'))
          child.expect_exact(b'Token: ')
