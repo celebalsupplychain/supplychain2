@@ -1,10 +1,6 @@
 #!/bin/bash
 echo "Supply_Chain";
-#cd /home/site/wwwroot/antenv/bin;
-#source activate;
 apt-get -y install git;
-#pip3 install pexpect;
-/opt/python/3.7.4/bin/pip3 install wheel;
 /opt/python/3.7.4/bin/pip3 install databricks-cli;
 #apt-get -y install expect;
 apt-get -y install jq;
