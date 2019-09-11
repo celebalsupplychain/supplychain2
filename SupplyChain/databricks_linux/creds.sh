@@ -3,7 +3,7 @@
 set hostname [lindex $argv 0];
 set token [lindex $argv 1];
  
-set timeout -1;
+set timeout -1
 
  
 spawn databricks configure --token
