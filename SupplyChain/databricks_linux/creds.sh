@@ -6,7 +6,7 @@ set token [lindex $argv 1];
 set timeout -1
 
  
-spawn databricks configure --token
+spawn /opt/python/3/bin/databricks configure --token
  
 expect "Databricks Host (should begin with https://): "
  
