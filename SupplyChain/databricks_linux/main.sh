@@ -1,5 +1,7 @@
 #!/bin/bash
 echo "Supply_Chain";
+PYTHONPATH=/opt/python/3/bin/python;
+export PYTHONPATH;
 apt-get -y install git;
 /opt/python/3.7.4/bin/pip3 install wheel;
 /opt/python/3.7.4/bin/pip3 install databricks-cli;
