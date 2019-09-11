@@ -58,8 +58,9 @@ try:
 
 		try:
 # 			os.system("exit")
-			os.system("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
-			
+			t=subprocess.getoutput("bash /home/site/wwwroot/SupplyChain/databricks_linux/main.sh {} {} {}".format(databricks_instance, databricks_token, "/home/site/wwwroot"))
+			with open('s.txt','w') as m:
+				m.write(t)
 		except:
 			print("Error in executing main shell script!!")
 	
