@@ -3,17 +3,17 @@ echo "Supply_Chain";
 #cd /home/site/wwwroot/antenv/bin;
 #source activate;
 apt-get -y install git;
-#pip3 install pexpect;
+pip3 install pexpect;
 pip3 install wheel;
 pip3 install databricks-cli;
-apt-get -y install expect;
+#apt-get -y install expect;
 apt-get -y install jq;
 #cp /home/site/wwwroot/antenv/bin/databricks /opt/python/3/bin/;
-#python3 /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
+python /home/site/wwwroot/SupplyChain/databricks_linux/sample.py $1 $2;
 expect /home/site/wwwroot/SupplyChain/databricks_linux/creds.sh $1 $2;
 git clone https://github.com/Prateekagarwal9/supplychain-new;
-databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
-databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
+/home/site/wwwroot/antenv/bin/databricks workspace import  -f DBC -l SCALA /home/site/wwwroot/supplychain-new/Supply-Chain-Solution.dbc /Supply-Chain-Solution;
+/home/site/wwwroot/antenv/bin/databricks fs mkdirs dbfs:/databricks/init/SupplyChain/;
 scripts=(
     arima_installation.sh
     prophet_installation.sh
