@@ -15,9 +15,6 @@ notebooks=["1. Inventory Optimization and Sales Forecasting - ARIMA","2. Demand 
 jsons=["arima.json","prophet.json","holtwinter.json","lstm.json","xgboost.json","or.json","os.json","timefence.json"]
 
 length_notebooks=len(notebooks)
-x=sys.argv[1]
-y=sys.argv[2]
-z=sys.argv[3]
 try:
 	def main(databricks_instance, databricks_token, scopename):
 		#Details of the cluster and notebooks assigned to variables
@@ -64,7 +61,7 @@ try:
 		except:
 			print("Error in executing main shell script!!")
 	
-	main(x,y,"scope")
+
 	
 except Exception as e:
     print(e)
