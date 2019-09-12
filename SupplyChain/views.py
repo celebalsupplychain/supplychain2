@@ -299,7 +299,7 @@ class SupplyChain(APIView):
             # Creation of blobs for all the parameters and deployment file in container
             for filepath in glob.iglob('upload_files/*.json'):
                 try:
-                    file_name = filepath.split("/")
+                    file_name = filepath.split("\\")
                     response_obj = blob_client.create_blob_from_path(container_name=container_name, blob_name=file_name[1],
                                                              file_path=os.path.join(BASE_DIR, filepath))
 
